@@ -45,24 +45,21 @@
 | the active record class
 */
 
-$active_group = 'default';
-$active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'clinic';
-$db['default']['dbdriver'] = 'mysqli';
-$db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = '';
-$db['default']['char_set'] = 'utf8';
-$db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = TRUE;
-$db['default']['stricton'] = FALSE;
+try {
+    $conn = new PDO("sqlsrv:server = tcp:incognitosia.database.windows.net,1433; Database = cinica", "gabriela", "pass@word1");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch (PDOException $e) {
+    print("Error connecting to SQL Server.");
+    die(print_r($e));
+}
+
+// SQL Server Extension Sample Code:
+$connectionInfo = array("UID" => "gabriela", "pwd" => "pass@word1", "Database" => "cinica", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$serverName = "tcp:incognitosia.database.windows.net,1433";
+$conn = sqlsrv_connect($serverName, $connectionInfo);
+?>
 
 
 /* End of file database.php */
